@@ -54,11 +54,12 @@ jobs:
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
+      id: docker_build
       with:
         context: .
         file: ./DockerFile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}flasktest-app:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/flasktest-app:latest
 
     - name: Image digest
-      run: echo ${{ steps.build-and-publish.outputs.digest }}
+      run: echo ${{ steps.docker_build.outputs.digest }}
